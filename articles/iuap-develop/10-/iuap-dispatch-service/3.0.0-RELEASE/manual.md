@@ -68,7 +68,7 @@ dispatch_dbinfo.properties如下：
 依次执行examples项目下sql目录中的dll.sql、index.sql、dml.sql建立数据库并初始化数据。
 
 预置数据库表dispatch_taskway的信息，这张表是用户要执行任务的清单，需要用户预置进去，其中url是指你要执行的定时任务，通过HTTP的方式访问。
- 
+
 
 ## 工程样例 ##
 
@@ -89,27 +89,11 @@ dispatch_dbinfo.properties如下：
 *(2)参数,格式如下*
 
 ```
-{"replace":true,"recallConfig":{"data":{},"option":{"url":"http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do"},"recallType":"HTTP"},"taskConfig":{"triggerType":"SimpleTrigger","jobCode":"22b511e8-1b80-4f4d-b65e-48f52d8aa682","groupCode":"simpleTaskGroup","startDate":1463813876403,"endDate":null,"priority":0,"timeConfig":{"interval":2,"intervalType":"SECOND","isForever":false,"repeatCount":1}},"note":"note"};
+{"replace":true,"recallConfig":{"data":{},"option":{"url":"http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do"},"recallType":"HTTP"},"taskConfig":{"triggerType":"SimpleTrigger","jobCode":"22b511e8-1b80-4f4d-b65e-48f52d8aa682","groupCode":"simpleTaskGroup","startDate":1463813876403,"endDate":null,"priority":0,"timeConfig":{"interval":2,"intervalType":"SECOND","isForever":false,"repeatCount":1}}};
 ```
 
-其中
 
-*替换属性：*
-"replace" 指是否替换已有的同名任务。 note为调用者自定义的参数
-
-*回调配置：* 指回调参数、URL地址以及回调类型，目前只支持HTTP类型
-
-{"data":{},"option":{"url":"*http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do*"},"recallType":"HTTP"}
-
-"url":http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do
-这个是示例，要传入回调的URL
-
-*时间配置：*{"interval":2,"intervalType":"SECOND","isForever":false,"repeatCount":1}
-
-*任务配置（集成了时间配置）*：      {"triggerType":"SimpleTrigger","jobCode":"666f35fc-387e-41c6-96e0-146acd5541a6","groupCode":"simpleTaskGroup","startDate":1464065198495,"endDate":null,"priority":0,"timeConfig":{"interval":2,"intervalType":"SECOND","isForever":false,"repeatCount":1}} 
-
-
- ** B、新增一个Cron任务**
+ ** B、新增一个Cron表达式任务**
  *(1)Rest服务URL*
    *(1)Rest服务URL*
    "http://localhost:8080/iuap-dispatch-service/dispatchserver/add.do"
@@ -118,19 +102,7 @@ dispatch_dbinfo.properties如下：
 ```
  "{\"replace\":true, \"recallConfig\":{\"data\":{\"serverName\":\"Windows 2003\"},\"option\":{\"url\":\"http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do\"},\"recallType\":\"HTTP\"}, \"taskConfig\":{\"cronExpress\":\"* */1 * * * ?\",\"groupCode\":\"cronTaskGroup\",\"jobCode\":\"cronTask\",\"priority\":0,\"triggerType\":\"CronTrigger\"}}";
 ```
-其中
 
-*替换属性：*
-"replace" 指是否替换已有的同名任务。 note为调用者自定义的参数
-
-*回调配置：* 指回调参数、URL地址以及回调类型，目前只支持HTTP类型
-
-{"data":{},"option":{"url":"*http://localhost:8080/iuap-dispatch-service/dispatchserver/pause.do*"},"recallType":"HTTP"}
- 
-    
-*任务配置：*
- " \"taskConfig\":{\"cronExpress\":\"* */1 * * * ?\",\"groupCode\":\"cronTaskGroup\",\"jobCode\":\"cronTask\",\"priority\":0,\"triggerType\":\"CronTrigger\"};
- 
 ### 通过界面进行任务调度 ###
 将组件war包部署到服务器上访问首页http://IP:PORT/iuap-dispatch-service进行任务的添加，添加任务界面如下图所示：
 
@@ -154,47 +126,494 @@ dispatch_dbinfo.properties如下：
 - Rest服务调用接口提供任务的增删等功能，具体调用方式参考工程样例章节。
 - 带界面的任务调度系统访问方式
 http://IP:PORT/iuap-dispatch-service
- 
 
-## 常用接口 ##
-- DispatchServerController
-- 
-<table style="border-collapse:collapse">
-	<thead>
-		<tr>
-			<th>方法名</th>
-			<th>参数</th>
-			<th>返回值</th>
-			<th>说明</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>addTask(HttpServletRequest request)</td>
-			<td>httprequest请求，传入date数据，具体参考样例工程</td>
-			<td>Map<String,Object>,成功失败以及成功失败信息</td>
-			<td>添加任务，调用方式http://IP:PORT/iuap-dispatch-service/dispatchserver/add.do</td>
-		</tr>
-		<tr>
-			<td>pauseTask(HttpServletRequest request)</td>
-			<td>httprequest请求，传入date数据，具体参考样例工程</td>
-			<td>Map<String,Object>,成功失败以及成功失败信息</td>
-			<td>暂停任务，调用方式http://IP:PORT/iuap-dispatch-service/dispatchserver/pause.do</td>
-		</tr>
-		<tr>
-			<td>resumeTask(HttpServletRequest request)</td>
-			<td>httprequest请求，传入date数据，具体参考样例工程</td>
-			<td>Map<String,Object>,成功失败以及成功失败信息</td>
-			<td>重启任务，调用方式http://IP:PORT/iuap-dispatch-service/dispatchserver/resume.do</td>
-		</tr>
-		<tr>
-			<td>deleteTask(HttpServletRequest request)</td>
-			<td>httprequest请求，传入date数据，具体参考样例工程</td>
-			<td>Map<String,Object>,成功失败以及成功失败信息</td>
-			<td>删除任务，调用方式http://IP:PORT/iuap-dispatch-service/dispatchserver/delete.do</td>
-		</tr>
-	</tbody>
+
+## API接口 ##
+
+### 指定任务Beanid新增基于Cron表达式的定时任务 ###
+
+**描述**
+
+添加或覆盖基于Cron表达式的定时调度任务
+
+**请求方法**
+
+/dispatchserver/add.do
+
+**请求方式**
+
+post
+
+**请求参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>recallConfig</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>回调信息配置，Json格式，具体参考下面说明</td>
+  </tr>
+  <tr>
+    <td>taskConfig</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务执行配置，Json格式，具体参考下面说明</td>
+  </tr>
+  <tr>
+    <td>replace</td>
+    <td>True</td>
+		<td>boolean</td>
+    <td>无</td>
+    <td>是否覆盖，为ture时，自动覆盖，为false时，如果存在会返回错误信息</td>
+  </tr>
 </table>
 
 
- 
+recallConfig内容格式：
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>recallType</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>回调方式，SOCKET/HTTP</td>
+  </tr>
+  <tr>
+    <td>option</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>回调的方式地址，"recallType" = "HTTP"时，格式为{"url":"http://ip:port/XXX"}
+		<br>"recallType" = "SOCKET"时，格式为{"host":"ip","port"}
+		</td>
+  </tr>
+  <tr>
+    <td>data</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务附加数据，执行时传递给调用接口，建议为json格式</td>
+  </tr>
+</table>
+
+taskConfig内容格式：
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>triggerType</th>
+    <th>必选</th>
+		<th>类型</th>
+		<th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>triggerType</td>
+    <td></td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>触发方式，SimpleTrigger/CronTrigger，下面参数根据类型不同变化，
+		<br>可参考sdk中的CronTaskConfig/SimpleTaskConfig两种配置类参数
+		</td>
+  </tr>
+  <tr>
+    <td>jobCode</td>
+    <td>SimpleTrigger/CronTrigger</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务名称</td>
+  </tr>
+  <tr>
+    <td>groupCode</td>
+    <td>SimpleTrigger/CronTrigger</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>组名称</td>
+  </tr>
+  <tr>
+    <td>priority</td>
+    <td>SimpleTrigger/CronTrigger</td>
+    <td>True</td>
+		<td>int</td>
+    <td>无</td>
+    <td>优先级，数字大的优先执行</td>
+  </tr>
+  <tr>
+    <td>endDate</td>
+    <td>SimpleTrigger/CronTrigger</td>
+    <td>True</td>
+		<td>Date</td>
+    <td>无</td>
+    <td>任务结束始时间</td>
+  </tr>
+  <tr>
+    <td>cronExpress</td>
+    <td>CronTrigger</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>表达式，</td>
+  </tr>
+  <tr>
+    <td>startDate</td>
+    <td>SimpleTrigger</td>
+    <td>True</td>
+		<td>Date</td>
+    <td>无</td>
+    <td>任务开始时间</td>
+  </tr>
+  <tr>
+    <td>timeConfig</td>
+    <td>SimpleTrigger</td>
+    <td>True</td>
+		<td>Json</td>
+    <td>无</td>
+    <td>时间配置，json格式，参考TimeConfig类格式如下</td>
+  </tr>
+</table>
+
+timeConfig内容格式：
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>interval</td>
+    <td>True</td>
+		<td>int</td>
+    <td>无</td>
+    <td>执行间隔时间，具体单位见intervalType</td>
+  </tr>
+  <tr>
+    <td>intervalType</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>执行间隔时间单位：NULL/MILLISECOND/SECOND/MINUTE/HOUR</td>
+  </tr>
+  <tr>
+    <td>isForever</td>
+    <td>True</td>
+		<td>boolean</td>
+    <td>无</td>
+    <td>是否重复执行，为true时会一直定时执行，直到暂停或删除任务</td>
+  </tr>
+  <tr>
+    <td>repeatCount</td>
+    <td>True</td>
+		<td>int</td>
+    <td>无</td>
+    <td>重复次数，isForever为false时，任务仅执行指定的次数</td>
+  </tr>
+</table>
+
+
+**返回参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>类型</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>boolean</td>
+    <td>true/false</td>
+  </tr>
+  <tr>
+    <td>error</td>
+    <td>String</td>
+    <td>错误信息</td>
+  </tr>
+  <tr>
+    <td>resultValue</td>
+    <td>String</td>
+    <td>返回值，一般为null</td>
+  </tr>
+</table>
+
+### 暂停任务 ###
+
+**描述**
+
+ 根据任务名称和组名称暂停任务
+
+**请求方法**
+
+/dispatchserver/pause.do
+
+**请求方式**
+
+post
+
+**请求参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>jobName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务名称</td>
+  </tr>
+  <tr>
+    <td>groupName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>组名称</td>
+  </tr>
+</table>
+
+**返回参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>类型</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>boolean</td>
+    <td>true/false</td>
+  </tr>
+  <tr>
+    <td>error</td>
+    <td>String</td>
+    <td>错误信息</td>
+  </tr>
+  <tr>
+    <td>resultValue</td>
+    <td>String</td>
+    <td>返回值，一般为null</td>
+  </tr>
+</table>
+
+### 恢复任务 ###
+
+**描述**
+
+ 根据任务名称和组名称恢复任务
+
+**请求方法**
+
+/dispatchserver/resumeTask.do
+
+**请求方式**
+
+post
+
+**请求参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>jobName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务名称</td>
+  </tr>
+  <tr>
+    <td>groupName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>组名称</td>
+  </tr>
+</table>
+
+**返回参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>类型</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>boolean</td>
+    <td>true/false</td>
+  </tr>
+  <tr>
+    <td>error</td>
+    <td>String</td>
+    <td>错误信息</td>
+  </tr>
+  <tr>
+    <td>resultValue</td>
+    <td>String</td>
+    <td>返回值，一般为null</td>
+  </tr>
+</table>
+
+### 删除任务 ###
+
+**描述**
+
+ 根据任务名称和组名称删除任务
+
+**请求方法**
+
+/dispatchserver/delete.do
+
+**请求方式**
+
+post
+
+**请求参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>jobName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务名称</td>
+  </tr>
+  <tr>
+    <td>groupName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>组名称</td>
+  </tr>
+</table>
+
+**返回参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>类型</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>boolean</td>
+    <td>true/false</td>
+  </tr>
+  <tr>
+    <td>error</td>
+    <td>String</td>
+    <td>错误信息</td>
+  </tr>
+  <tr>
+    <td>resultValue</td>
+    <td>String</td>
+    <td>返回值，一般为null</td>
+  </tr>
+</table>
+
+### 立即执行任务 ###
+
+**描述**
+
+ 根据任务名称和组名称立即执行任务
+
+**请求方法**
+
+/dispatchserver/trigger.do
+
+**请求方式**
+
+post
+
+**请求参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>必选</th>
+		<th>类型</th>
+    <th>长度限制</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>jobName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>任务名称</td>
+  </tr>
+  <tr>
+    <td>groupName</td>
+    <td>True</td>
+		<td>String</td>
+    <td>无</td>
+    <td>组名称</td>
+  </tr>
+</table>
+
+**返回参数说明**
+
+<table>
+  <tr>
+    <th>参数字段</th>
+    <th>类型</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>success</td>
+    <td>boolean</td>
+    <td>true/false</td>
+  </tr>
+  <tr>
+    <td>error</td>
+    <td>String</td>
+    <td>错误信息</td>
+  </tr>
+  <tr>
+    <td>resultValue</td>
+    <td>String</td>
+    <td>返回值，一般为null</td>
+  </tr>
+</table>
