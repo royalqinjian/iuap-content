@@ -51,7 +51,7 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
 ## 组件配置 ##
 ** 1. 数据库信息配置（securitylog-application.properties）：**
 
-下面几项必须配置 
+下面几项必须配置
 ```
     jdbc.url=jdbc:mysql://172.20.14.207:3306/securitylog?useUnicode=true&characterEncoding=gb2312
     jdbc.driverclass=com.mysql.jdbc.Driver
@@ -64,6 +64,9 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
     maxPoolSize=5
 ```
 
+** 注意，war包中不提供数据库驱动，需要手工将驱动放到war的WEB-INF/lib目录下 **
+
+
 ** 2. 配置文件参考：参考war包中的springDispatcherServlet-servlet.xml和securitylog-applicationContext.xml **
 
 参考war包中的springDispatcherServlet-servlet.xml和securitylog-applicationContext.xml
@@ -71,7 +74,7 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
 
 ** 3. 对于异步调用的方式，需要的配置文件。**
 
-配置文件参考war包中的springDispatcherServlet-servlet.xml和securitylog-applicationContext.xml和securitylog-applicationContext-mq-consumer.xml 
+配置文件参考war包中的springDispatcherServlet-servlet.xml和securitylog-applicationContext.xml和securitylog-applicationContext-mq-consumer.xml
 
 MQ服务器配置securitylogMQConfig.properties，需要放在classpath目录下：
 ```

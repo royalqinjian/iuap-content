@@ -56,11 +56,13 @@ iuap-dispatch-service组件功能包括添加、删除、暂停、重启任务�
 **1:在属性文件中，配置数据库连接等信息**
 dispatch_dbinfo.properties如下：
 ```
-    jdbc.driverClassName=com.mysql.jdbc.Driver
+  jdbc.driverClassName=com.mysql.jdbc.Driver
 	jdbc.url=jdbc:my`://IP:PORT/DATABASE?useUnicode=true&characterEncoding=utf-8
 	jdbc.username=用户名
 	jdbc.password=密码
 ```
+
+** 注意，war包中不提供数据库驱动，需要手工将驱动放到war的WEB-INF/lib目录下 **
 
 **2:执行数据库脚本，预置数据库表信息**
 
