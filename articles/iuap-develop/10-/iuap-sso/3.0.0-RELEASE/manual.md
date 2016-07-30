@@ -170,7 +170,17 @@ QQ为`com.yonyou.uap.ieop.login.servlet.QQUserInfoServlet`
 在`doAfterLogin`方法中处理自有系统原来的登录逻辑。  
 
 
-## 常用接口 ##
+## API接口 ##
+
+### 第三方登录跳转
+
+**请求方法**  
+
+/login_servlet
+
+**请求参数说明**  
+
+
 - LoginServlet
 <table>
   <tr>
@@ -186,6 +196,13 @@ QQ为`com.yonyou.uap.ieop.login.servlet.QQUserInfoServlet`
     <td><br>  String<br>  </td>
     <td><br>  20<br>  </td>
     <td><br>  登录类型(WECHAT、QQ、WEIBO)<br>  </td>
+  </tr>
+  <tr>
+    <td><br>  isLogin<br>  </td>
+    <td><br>  True<br>  </td>
+    <td><br>  boolean<br>  </td>
+    <td><br>  20<br>  </td>
+    <td><br>  是否登录，为true，跳转登录界面，否则直接进行第三方认证<br>  </td>
   </tr>
 </table>  
 

@@ -95,6 +95,8 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
 	jdbc.maxWait=60000
 ```
 
+** 注意，war包中不提供数据库驱动，需要手工将驱动放到war的WEB-INF/lib目录下 **
+
 4.执行数据库脚本
 
 依次执行examples项目下sql目录中的dll.sql、index.sql、dml.sql建立数据库并初始化数据。
@@ -205,7 +207,9 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
 #### 附件上传
 
 **描述**  
+
 附件上传  
+
 **请求方法**  
 
 filesystem_upload(parameter,callback)
