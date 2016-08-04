@@ -24,6 +24,9 @@ iuap的分布式锁组件是利用Zookeeper的强一致特性，通过Zookeeper�
 	
 	#配置锁组件连接zookeeper的url
 	zklock.url=127.0.0.1:2181
+	#zookeeper集群方式配置示例
+	#zklock.url=20.12.6.58:2181,20.12.6.59:2181,20.12.6.60:2181
+
 	#锁存活最大时间，单位秒，如果不配置，不强制删除，如果配置，加锁失败且已有的锁存活时间大于此值，强制删除
 	zklock.maxlocktime=3600
 
