@@ -181,9 +181,6 @@ example测试类
     @WebServlet(asyncSupported = true,name = "Oss",urlPatterns = { "/oss" })
     public class OssDirectServlet extends CallbackServer {
     	
-    	/**
-    	 * 
-    	 */
     	private static final long serialVersionUID = 1L;
     
     	protected void doPost(HttpServletRequest request, HttpServletResponse response)
