@@ -63,9 +63,10 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
 
 ### spring集成 ###
 
-在Spring的配置文件中添加如下配置（或者是将以下内容放在一个单独的配置文件中，在工程启动时加载此文件）：
+** 1. 在Spring的配置文件中添加如下配置（或者是将以下内容放在一个单独的配置文件中，在工程启动时加载此文件）：**
 
-      <?xml version="1.0" encoding="UTF-8"?>
+```
+  	<?xml version="1.0" encoding="UTF-8"?>
     <beans xmlns="http://www.springframework.org/schema/beans"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -143,6 +144,50 @@ ${iuap.modules.version} 为平台在maven私服上发布的组件的version。
     <!--    <property name="minEvictableIdleTimeMillis" value="30000" /> -->
     <!--  </bean> -->
     </beans>
+```
+
+** 2. 如果要使用分布式锁的机制，需要将spring配置文件中的zookeeper相关的注释放开，将mySqlRowLock的注释掉。同时配置application.properties（也可以为自己指定的属性文件，只要注入到spring中即可）内容如下：**
+
+```
+
+#配置锁组件连接zookeeper时候使用的连接类型，single(单机)、cluster（集群）
+zklock.connection.type=single
+zklock.url.single=20.12.6.126:2181
+zklock.url.cluster=172.20.12.20:2180,172.20.12.20:2181,172.20.12.20:2182
+
+```
+** 3. web.xml 配置启动监听初始化分布式锁的连接池（使用分布式锁时） **
+
+
+代码实现
+```
+public class CustomServletContextListener implements ServletContextListener {
+
+    public void contextDestroyed(ServletContextEvent sce) {
+    }
+
+	public void contextInitialized(ServletContextEvent event) {
+		WebApplicationContext wac = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());
+		ContextHolder.setContext(wac);
+		GenericObjectPoolConfig config = (GenericObjectPoolConfig)ContextHolder.getContext().getBean("zkPoolConfig");
+		ZkPool.initPool(config);
+	}
+
+}
+
+```
+web.xml中配置如下，
+
+```
+
+<listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	<listener-class>com.yonyou.uap.billcode.listener.CustomServletContextListener</listener-class>
+</listener>
+
+```
+** 注:此处主要为了初始化分布式锁，只要保证应用启动时执行ZkPool.initPool(config)即可**
+
 
 ### 使用API接口完成请求 ###
 
