@@ -9,6 +9,6 @@
 
 5. 支持阿里云Redis服务器的连接
 
-6. 支持 redis cluster方式
+6.支持 redis cluster方式
 
 7. 提供cluster方式调用的API

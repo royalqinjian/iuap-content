@@ -279,7 +279,7 @@ redis官方在redis3.0以后的版本提供了 redis-cluster的方式
     rediscluster.session.url=192.168.22.129:7000,192.168.22.129:7001,192.168.22.129:7002,192.168.22.129:7003,192.168.22.129:7004,192.168.22.129:7005?timeout=20000&maxRedirections=6
     rediscluster.url=192.168.22.129:7000,192.168.22.129:7001,192.168.22.129:7002,192.168.22.129:7003,192.168.22.129:7004,192.168.22.129:7005?timeout=20000&maxRedirections=6
     
-    #session放入到那种redis缓存里面， normal为原来的形式， cluster为放入到 redisCluster里面
+    #session放入到哪种redis缓存里面， normal为原来的形式， cluster为放入到 redisCluster里面
     redis.seesion.type=cluster
     
     
@@ -303,7 +303,8 @@ redis官方在redis3.0以后的版本提供了 redis-cluster的方式
 	</bean>
 	
 	
-	
+
+为兼容两种不同的操作方式，在java代码中 ，可以注入接口。（如果在确定要用某种方案时候，也可以直接注入实现类）	，注意： 如果注入接口时候，两种实现类不同同时出现在配置文件中。
 java代码调用
 	
     @Autowired
@@ -311,7 +312,14 @@ java代码调用
 	
 	@Autowired
 	private CacheClusterManager cacheManager;
+
+
+	//@Autowired  注入接口
+	//private    ISessionManager sessionMgr;
 	
+	//@Autowired  注入接口
+	//private ICacheManager cacheManager;
+
 	@Autowired()
 	protected ITokenProcessor webTokenProcessor;
 
