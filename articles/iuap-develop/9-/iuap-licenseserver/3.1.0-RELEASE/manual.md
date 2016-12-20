@@ -169,27 +169,29 @@ b)	选择几条License客户端, 点击注销按钮可以对客户端取消授�
 
 
 ## 相关页面
-1.	LicenseServer 主页面
+1.LicenseServer 主页面
 
 <img src="./images/ui_main.png"/>
  
-2.	生成硬件锁(从主界面点击”生成硬件锁” 按钮进入)
+2.生成硬件锁(从主界面点击”生成硬件锁” 按钮进入)
 
 <img src="./images/ui_genhardkey.png"/>
 
-3.	导入授权(从主界面点击”导入授权”按钮进入)
-	- a)	导入授权
- 		<img src="./images/ui_import_license.png"/>
-	- b)	导入授权结果成功页面
- 		<img src="./images/ui_genhardkey.png"/>
+3.导入授权(从主界面点击”导入授权”按钮进入)
 
-4.	License文件
- <img src="./images/ui_import_license_success.png"/>
+<img src="./images/ui_import_license.png"/>
 
-5.	License管理
+4.导入授权结果成功页面
+
+<img src="./images/ui_import_license_success.png"/>
+
+5.License文件
+ <img src="./images/ui_licensefile.png"/>
+
+6.License管理
  <img src="./images/ui_licensemgr.png"/>
 
-6.	License客户端
+7.License客户端
  <img src="./images/ui_licenseclient.png"/>
 
 
