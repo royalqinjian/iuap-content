@@ -100,6 +100,8 @@ idtype为需要使用的ID生成类型，目前包括UUID、redis自增、snowfl
 	    <property name="jdbcTemplate" ref="jdbcTemplate" />
 	    <property name="stepSize" value="5000" />
     </bean>
+	<!—需要启用spring annotation事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
 注意:建表和初始化sql语句请参考示例工程，最终生成的为20位的字符串，前八位为用户指定的schema名。
 
