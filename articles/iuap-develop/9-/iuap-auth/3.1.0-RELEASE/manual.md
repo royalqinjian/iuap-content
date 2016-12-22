@@ -549,3 +549,15 @@ java代码调用
 			sessionMgr.registOnlineSession(userId, webTokenProcessor.generateToken(tokenparam), webTokenProcessor);
 		}
 	}
+
+
+
+java代码中调用还可以通过注入接口的方式来使用
+
+示例如：
+
+     @Autowired
+	 private    ISessionManager sessionMgr;
+
+	@Autowired
+	private ICacheManager cacheManager;
