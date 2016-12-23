@@ -301,8 +301,9 @@ redis官方在redis3.0以后的版本提供了 redis-cluster的方式
 	<bean id="sessionClusterMgr" class="com.yonyou.iuap.auth.session.SessionClusterManager">
 		<property name="jedisCluster" ref="sessionJedisCluster"  />
 	</bean>
+
 	
-	
+为兼容redis2.8和redis3.0后的 cluster两种不同的操作方式，在java代码中 ，可以注入接口。（如果在确定要用某种方案时候，也可以直接注入实现类）	，注意： 如果注入接口时候，两种实现类不同同时出现在配置文件中。
 	
 java代码调用
 	
@@ -311,6 +312,13 @@ java代码调用
 	
 	@Autowired
 	private CacheClusterManager cacheManager;
+
+	//@Autowired  注入接口
+	//private    ISessionManager sessionMgr;
+	
+	//@Autowired  注入接口
+	//private ICacheManager cacheManager;
+
 	
 	@Autowired()
 	protected ITokenProcessor webTokenProcessor;
