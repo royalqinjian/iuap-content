@@ -1,3 +1,4 @@
+##3.1.0-RELEASE##
 1. 提供对Spring data JPA、Mybatis、连接池的集成
 
 2. 提供Mybatis基础扫描注解和分页

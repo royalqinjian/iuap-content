@@ -1,4 +1,5 @@
-﻿1. 扩展iuap-persistence中对JPA的查询
+##3.1.0-RELEASE##
+1. 扩展iuap-persistence中对JPA的查询
 
 2. 支持对数据库方言的扩展
 
