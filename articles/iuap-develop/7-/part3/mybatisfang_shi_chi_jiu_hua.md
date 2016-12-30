@@ -6,9 +6,9 @@ MyBatis源自开源项目iBatis, 是一个支持普通SQL查询，存储过程�
 1. maven配置:
 maven的依赖配置如下图，其中版本号iuap.modules.version为指定的日志组件的版本，可以从maven仓库获取适当的版本，例如2.0.1-RELEASE、3.0.0-RELEASE等。
 ![](../image/image52.png) 
-iUAP平台提供的持久层组件已经将Mybatis需要的依赖包进行管理，引用的依赖如下：
+iuap平台提供的持久层组件已经将Mybatis需要的依赖包进行管理，引用的依赖如下：
  ![](../image/image53.png)
-	数据库驱动的maven依赖需要开发者根据数据库选型自行引入。
+数据库驱动的maven依赖需要开发者根据数据库选型自行引入。
 2. 属性文件配置:
  ![](../image/image40.png)
 3. web.xml配置

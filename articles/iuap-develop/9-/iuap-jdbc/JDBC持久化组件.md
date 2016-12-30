@@ -15,3 +15,6 @@ iUAP平台采用iuap-jdbc作为数据持久化中间件，实现对对业务数�
 
 2. 提供主子表的级联保存，更新，删除操作。
 
+## iuap-jdbc-3.1.0-RELEASE.jar ##
+
+1. 适配weblogic和websphere JNDI数据源；
