@@ -37,9 +37,9 @@ workspace：是存放开发平台示例工程源码的工作空间文件夹。
 
 2、如果打开pgsql数据库发生闪退，需要对devtool\DB\pgsql文件夹赋予完全控制权限。对文件夹点击右键选择属性--选择安全标签--点击编辑--为USER用户添加完全控制权限。如下图  
 
-![](./image/pgAuthor1.jpg) 
+![](./image/pgauthor.jpg) 
 
-![](./image/pgAuthor1.jpg)
+![](./image/pgauthor.jpg)
 
 3、需要安装vc2010运行库，DEVTOOL文件夹下vcredist_x86.exe为安装包
 准备工作完毕后，通过demo文件夹的脚本能够快速的启动开发环境的示例网站，启动DevTool\demo目录下的qucikstart.bat，启动成功后在浏览器输入http://localhost、http://localhost/ecmgr可以分别浏览电商网站、电商管理后台。启动bin目录下的startmongodb.bat和startredis.bat可以启动mongodb和redis。启动bin目录下的startsolr.bat可以开启solr为商城的首页提供全文检索商品服务示例。

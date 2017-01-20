@@ -218,7 +218,7 @@
 
 或者用户自行配置Server服务器，选择tomcat相应版本并启动。
 
-启动完成后，在浏览器输入[http://localhost:8080/xxxxx]()(工程artifactid)即可浏览工程页面。如图所示：
+启动完成后，在浏览器输入 http://localhost:8080/xxxxx(工程artifactid)即可浏览工程页面。如图所示：
 
 ![](images/index.png)
 
